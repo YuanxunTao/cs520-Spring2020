@@ -20,8 +20,8 @@ public class TIARGame {
     public static final String GAME_END_NOWINNER = "Game ends in a draw";
     public static final String PLAYER1_TEXT = "Player 1 to play 'X'";
     public static final String PLAYER2_TEXT = "Player 2 to play 'O'";
-    public static final String PLAYER1_WINTXT = "Player 1 wins!";
-    public static final String PLAYER2_WINTXT = "Player 2 wins!";
+    public static final String PLAYER1_WINTXT = "Player 1 wins!!";
+    public static final String PLAYER2_WINTXT = "Player 2 wins!!";
     public static final int ROW_NUM = 3;
     public static final int COLUMN_NUM = 3;
     public static final int PLAYER1 = 1;
@@ -128,11 +128,14 @@ public class TIARGame {
 		    gameControl.blocksData[row][column].setIsLegalMove(false);
 		    gameControl.blocksData[row][column].setBlockValue(1);
 		    updateBlock(row, column);
-		    checkEndGame(row, column);
-		    player = PLAYER2;
-		    if(row != 0) {
-		    	gameControl.blocksData[row-1][column].setIsLegalMove(true);
-		    	updateBlock(row-1, column);
+		    if(checkEndGame(row, column))
+		    	endGame();
+		    else {
+			    player = PLAYER2;
+			    if(row != 0) {
+			    	gameControl.blocksData[row-1][column].setIsLegalMove(true);
+			    	updateBlock(row-1, column);
+			    }
 		    }
 		} else {
 		    // Check whether player 2 won
@@ -140,11 +143,14 @@ public class TIARGame {
 		    gameControl.blocksData[row][column].setIsLegalMove(false);
 		    gameControl.blocksData[row][column].setBlockValue(-1);
 		    updateBlock(row, column);
-		    checkEndGame(row, column);
-		    player = PLAYER1;
-		    if(row != 0) {
-		    	gameControl.blocksData[row-1][column].setIsLegalMove(true);
-		    	updateBlock(row-1, column);
+		    if(checkEndGame(row, column))
+		    	endGame();
+		    else {
+			    player = PLAYER1;
+			    if(row != 0) {
+			    	gameControl.blocksData[row-1][column].setIsLegalMove(true);
+			    	updateBlock(row-1, column);
+			    }
 		    }
 		}
     }
@@ -161,30 +167,34 @@ public class TIARGame {
 		blocks[row][column].setEnabled(gameControl.blocksData[row][column].getIsLegalMove());
     }
 
-    public void checkEndGame(int row, int column){
+    public boolean checkEndGame(int row, int column){
     	if(gameControl.winningMove(row, column) == 1){
 			playerturn.setText(PLAYER1_WINTXT);
-			endGame();
+			return true;
 			    
     	}
     	else if(gameControl.winningMove(row, column) == 2){
     		playerturn.setText(PLAYER2_WINTXT);
-			endGame();
+			return true;
     	}
     	else if(movesLeft==0){
     		playerturn.setText(GAME_END_NOWINNER);
+    		return true;
     	}
+    	else
+    		return false;
     }
 
     /**
      * Ends the game disallowing further player turns.
      */
     public void endGame() {
-	for(int row = 0;row<3;row++) {
-	    for(int column = 0;column<3;column++) {
-		blocks[row][column].setEnabled(false);
-	    }
-	}
+		for(int row = 0;row<ROW_NUM;row++) {
+		    for(int column = 0;column<COLUMN_NUM;column++) {
+		    	gameControl.blocksData[row][column].setIsLegalMove(false);
+		    	updateBlock(row, column);
+		    }
+		}
     }
 
     /**
