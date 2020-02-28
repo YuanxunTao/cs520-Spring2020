@@ -14,7 +14,12 @@ ThreeInARowGame.java and ThreeInARowBlock.java are a basic Java implementation o
 ### How to run (from Terminal):
 
 1. After building the project (i.e., running `ant`), run the following command in the threeinarow folder:
-   `java -cp bin ThreeInARowGame`
+   `java -cp bin\view\TIARGame`
+or
+   `java bin\view\TIARGame`
+or
+	try to run the whole project in eclipse
+Since I've tried on several different PC, some of them can run the program in command line but some cannot, and the program could only run in eclipse project. I don't know what is wrong with this but this program is actually runnable, if you have any trouble running this program, I could show you it actually run on my PC.
 
 ### How to clean up (from Terminal):
 

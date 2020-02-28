@@ -1,1 +1,0 @@
-typeSearchIndex = [{"l":"ThreeInARowBlock","h":"","u":""},{"l":"ThreeInARowGame","h":"","u":""},{"l":"所有类","h":"","u":"allclasses-index.html"}]
